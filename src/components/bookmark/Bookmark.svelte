@@ -32,7 +32,7 @@
 <div class="card bookmark">
   <header class="card-header">
     <p class="card-header-title title is-4">A good link</p>
-    <span class="tag is-link">Bookmark</span>
+    <span class="tag is-primary">Bookmark</span>
   </header>
   <div class="card-content">
     <div class="content">

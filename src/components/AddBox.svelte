@@ -3,6 +3,10 @@
 </script>
 
 <style>
+  .addbox-container {
+    margin-top: 3rem;
+  }
+
   .bookmark-section {
     border-right: 2px #d5dbdb solid;
     padding-left: 1rem;
@@ -36,7 +40,7 @@
   }
 </style>
 
-<div class="container box">
+<div class="container box addbox-container">
   <div class="columns">
     <div class="column bookmark-section">
 

@@ -5,6 +5,11 @@
 <style>
   .navbar-brand .navbar-item h1 {
     font-family: "Vidaloka", serif;
+    text-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  }
+
+  header {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
   }
 </style>
 
