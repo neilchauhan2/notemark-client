@@ -12,7 +12,7 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <div class="navbar-item">
-        <h1 class="logo is-size-2">Collect</h1>
+        <h1 class="logo is-size-2">Notemark</h1>
       </div>
       <a
         href="#"

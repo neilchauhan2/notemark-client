@@ -9,6 +9,12 @@
   main {
     font-family: "Source Sans Pro", sans-serif;
   }
+
+  h1 {
+    margin-top: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 </style>
 
 <main>
@@ -19,12 +25,12 @@
 
   <div class="container notemark-section">
     <div class="columns">
-      <div class="column">
-        <h1>Bookmarks</h1>
+      <div class="column ">
+        <h1 class="is-size-3 has-text-centered">Bookmarks</h1>
         <BookmarkContainer />
       </div>
       <div class="column">
-        <h1>Notes</h1>
+        <h1 class="is-size-3 has-text-centered">Notes</h1>
         <NoteContainer />
       </div>
     </div>
