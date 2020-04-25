@@ -1,3 +1,9 @@
+<script>
+  export let title;
+  export let description;
+  export let url;
+</script>
+
 <style>
   .bookmark {
     margin-top: 1rem;
@@ -8,6 +14,10 @@
     font-weight: 600;
     font-size: 15px;
     text-transform: uppercase;
+  }
+
+  .bookmark button a {
+    color: white;
   }
 
   .bookmark .card-header span {
@@ -29,22 +39,21 @@
   }
 </style>
 
+<!-- correct the url -->
+
 <div class="card bookmark">
   <header class="card-header">
-    <p class="card-header-title title is-4">A good link</p>
+    <p class="card-header-title title is-4">{title}</p>
     <span class="tag is-primary">Bookmark</span>
   </header>
   <div class="card-content">
-    <div class="content">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis et
-      nostrum recusandae, iure mollitia consectetur dolor obcaecati assumenda
-      possimus nulla est! Voluptatibus deserunt recusandae necessitatibus
-      dolorem reiciendis beatae similique delectus!
-    </div>
+    <div class="content">{description}</div>
   </div>
   <footer class="card-footer">
     <div class="card-footer-item">
-      <button class="button is-primary ">View</button>
+      <button class="button is-primary ">
+        <a href={url}>View</a>
+      </button>
     </div>
     <div class="card-footer-item">
       <button class="button is-danger ">Delete</button>
