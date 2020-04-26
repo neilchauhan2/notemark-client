@@ -4,6 +4,40 @@
   import BookmarkContainer from "./components/bookmark/BookmarkContainer.svelte";
   import NoteContainer from "./components/note/NoteContainer.svelte";
   import axios from "axios";
+
+  // arrays -->
+  let bookmarks = [];
+  let notes = [];
+
+  //  methods -->
+  const getAllNotes = async () => {
+    try {
+      const res = await axios.get(
+        "https://notemark.herokuapp.com/api/note/all/5ea181d42e5cf60022217eee"
+      );
+      notes = [...res.data];
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const getAllBookmarks = async () => {
+    try {
+      const res = await axios.get(
+        "https://notemark.herokuapp.com/api/bookmark/all/5ea181d42e5cf60022217eee"
+      );
+      bookmarks = [...res.data];
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // const createBookmark = async credentials => {
+  //   try {
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 </script>
 
 <style>
@@ -28,11 +62,11 @@
     <div class="columns">
       <div class="column ">
         <h1 class="is-size-3 has-text-centered">Bookmarks</h1>
-        <BookmarkContainer />
+        <BookmarkContainer {getAllBookmarks} {bookmarks} />
       </div>
       <div class="column">
         <h1 class="is-size-3 has-text-centered">Notes</h1>
-        <NoteContainer />
+        <NoteContainer {getAllNotes} {notes} />
       </div>
     </div>
   </div>

@@ -3,27 +3,34 @@
   import { onMount } from "svelte";
   import axios from "axios";
 
-  let bookmarks = [];
+  export let getAllBookmarks;
+  export let bookmarks;
 
-  onMount(() => {
-    axios
-      .get(
-        "https://notemark.herokuapp.com/api/bookmark/all/5ea181d42e5cf60022217eee"
-      )
-      .then(res => res.data)
-      .then(data => {
-        bookmarks = [...data];
-      });
+  onMount(async () => {
+    try {
+      await getAllBookmarks();
+    } catch (error) {
+      throw error;
+    }
   });
 </script>
 
-<div class="container">
+<style>
+  .bookmark-container img {
+    width: 100px;
+    margin-left: 40%;
+  }
+</style>
+
+<div class="container bookmark-container">
   {#each bookmarks as bookmark}
     <Bookmark
       title={bookmark.title}
       description={bookmark.description}
       url={bookmark.url} />
   {:else}
-    <p>No bookmarks yet!</p>
+    <img
+      src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
+      alt="loading" />
   {/each}
 </div>

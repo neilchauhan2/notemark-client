@@ -3,17 +3,15 @@
   import { onMount } from "svelte";
   import axios from "axios";
 
-  let notes = [];
+  export let getAllNotes;
+  export let notes;
 
-  onMount(() => {
-    axios
-      .get(
-        "https://notemark.herokuapp.com/api/note/all/5ea181d42e5cf60022217eee"
-      )
-      .then(res => res.data)
-      .then(data => {
-        notes = [...data];
-      });
+  onMount(async () => {
+    try {
+      await getAllNotes();
+    } catch (error) {
+      throw error;
+    }
   });
 </script>
 
