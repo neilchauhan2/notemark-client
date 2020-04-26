@@ -5,9 +5,22 @@
   import NoteContainer from "./components/note/NoteContainer.svelte";
   import axios from "axios";
 
-  // arrays -->
+  // variables -->
   let bookmarks = [];
   let notes = [];
+
+  let bookmark = {
+    title: "",
+    descripiton: "",
+    url: "",
+    creator: "5ea181d42e5cf60022217eee"
+  };
+
+  let note = {
+    title: "",
+    description: "",
+    creator: "5ea181d42e5cf60022217eee"
+  };
 
   //  methods -->
   const getAllNotes = async () => {
@@ -32,12 +45,19 @@
     }
   };
 
-  // const createBookmark = async credentials => {
-  //   try {
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // };
+  const createBookmark = async credentials => {
+    try {
+      const res = await axios.post(
+        "https://notemark.herokuapp.com/api/bookmark/add",
+        {
+          ...credentials
+        }
+      );
+      await bookmarks.push(...res.data);
+    } catch (error) {
+      throw error;
+    }
+  };
 </script>
 
 <style>
@@ -55,7 +75,7 @@
 <main>
   <Navbar />
   <div class="container addbox">
-    <AddBox />
+    <AddBox {createBookmark} {bookmark} {note} />
   </div>
 
   <div class="container notemark-section">

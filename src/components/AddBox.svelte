@@ -1,5 +1,17 @@
 <script>
+  export let bookmark;
+  export let note;
+  export let createBookmark;
 
+  // methods
+  const bookmarkHandleChange = e => {
+    bookmark[e.target.name] = e.target.value;
+  };
+
+  const noteHandleChange = e => {
+    note[e.target.id] = e.target.value;
+    console.log(note);
+  };
 </script>
 
 <style>
@@ -49,20 +61,34 @@
       <div class="field">
         <label class="label">Title</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Enter a Title" />
+          <input
+            class="input"
+            on:input={bookmarkHandleChange}
+            name="title"
+            type="text"
+            placeholder="Enter a Title" />
         </div>
 
         <div class="field">
           <label class="label">Description</label>
           <div class="control">
-            <textarea class="textarea" placeholder="Description" />
+            <textarea
+              name="description"
+              on:input={bookmarkHandleChange}
+              class="textarea"
+              placeholder="Description" />
           </div>
         </div>
 
         <div class="field">
           <label class="label">Url</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Enter Url" />
+            <input
+              name="url"
+              on:input={bookmarkHandleChange}
+              class="input"
+              type="text"
+              placeholder="Enter Url" />
           </div>
         </div>
 
@@ -75,13 +101,22 @@
 
       <label class="label">Title</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Enter a Title" />
+        <input
+          class="input"
+          id="title"
+          on:input={noteHandleChange}
+          type="text"
+          placeholder="Enter a Title" />
       </div>
 
       <div class="field">
         <label class="label">Description</label>
         <div class="control">
-          <textarea class="textarea" placeholder="Description" />
+          <textarea
+            class="textarea"
+            id="description"
+            on:input={noteHandleChange}
+            placeholder="Description" />
         </div>
       </div>
 
