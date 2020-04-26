@@ -1,12 +1,35 @@
 <script>
   import Note from "./Note.svelte";
-  import { notes } from "../../store.js";
+  import { onMount } from "svelte";
+  import axios from "axios";
+
+  let notes = [];
+
+  onMount(() => {
+    axios
+      .get(
+        "https://notemark.herokuapp.com/api/note/all/5ea181d42e5cf60022217eee"
+      )
+      .then(res => res.data)
+      .then(data => {
+        notes = [...data];
+      });
+  });
 </script>
 
-<div class="container">
-  {#each $notes as bookmark}
+<style>
+  .note-container img {
+    width: 100px;
+    margin-left: 40%;
+  }
+</style>
+
+<div class="container note-container">
+  {#each notes as note}
     <Note />
   {:else}
-    <p class="has-text-centered subtitle is-5">No notes yet!</p>
+    <img
+      src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
+      alt="loading" />
   {/each}
 </div>

@@ -3,6 +3,7 @@
   import AddBox from "./components/AddBox.svelte";
   import BookmarkContainer from "./components/bookmark/BookmarkContainer.svelte";
   import NoteContainer from "./components/note/NoteContainer.svelte";
+  import axios from "axios";
 </script>
 
 <style>
