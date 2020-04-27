@@ -5,6 +5,7 @@
 
   export let getAllBookmarks;
   export let bookmarks;
+  export let deleteBookmark;
 
   onMount(async () => {
     try {
@@ -27,7 +28,9 @@
     <Bookmark
       title={bookmark.title}
       description={bookmark.description}
-      url={bookmark.url} />
+      url={bookmark.url}
+      id={bookmark._id}
+      {deleteBookmark} />
   {:else}
     <img
       src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"

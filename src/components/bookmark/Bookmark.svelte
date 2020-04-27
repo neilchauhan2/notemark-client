@@ -2,6 +2,8 @@
   export let title;
   export let description;
   export let url;
+  export let id;
+  export let deleteBookmark;
 </script>
 
 <style>
@@ -56,7 +58,9 @@
       </button>
     </div>
     <div class="card-footer-item">
-      <button class="button is-danger ">Delete</button>
+      <button class="button is-danger" on:click={() => deleteBookmark(id)}>
+        Delete
+      </button>
     </div>
 
   </footer>

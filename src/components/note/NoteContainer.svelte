@@ -5,6 +5,7 @@
 
   export let getAllNotes;
   export let notes;
+  export let deleteNote;
 
   onMount(async () => {
     try {
@@ -24,7 +25,11 @@
 
 <div class="container note-container">
   {#each notes as note}
-    <Note title={note.title} description={note.description} />
+    <Note
+      title={note.title}
+      description={note.description}
+      id={note._id}
+      {deleteNote} />
   {:else}
     <img
       src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"

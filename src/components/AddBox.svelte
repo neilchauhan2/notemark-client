@@ -45,8 +45,11 @@
 
   button {
     font-weight: 600;
+    letter-spacing: 1.5px;
+    text-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
     font-family: "Source Sans Pro", sans-serif;
     font-size: 20px;
+    text-transform: uppercase;
   }
 
   label {
@@ -111,6 +114,7 @@
         </div>
 
         <button
+          id="create-bookmark-btn"
           class="button is-primary is-fullwidth"
           on:click={handleSubmitBookmark}>
           Create Bookmark
@@ -142,7 +146,10 @@
         </div>
       </div>
 
-      <button class="button is-link is-fullwidth" on:click={handleSubmitNote}>
+      <button
+        id="create-note-btn"
+        class="button is-link is-fullwidth"
+        on:click={handleSubmitNote}>
         Create Note
       </button>
 

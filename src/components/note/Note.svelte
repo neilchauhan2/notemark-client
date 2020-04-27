@@ -1,6 +1,8 @@
 <script>
   export let title;
   export let description;
+  export let id;
+  export let deleteNote;
 </script>
 
 <style>
@@ -44,7 +46,9 @@
   </div>
   <footer class="card-footer">
     <div class="card-footer-item">
-      <button class="button is-danger ">Delete</button>
+      <button class="button is-danger" on:click={() => deleteNote(id)}>
+        Delete
+      </button>
     </div>
 
   </footer>
