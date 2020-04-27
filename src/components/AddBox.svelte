@@ -2,6 +2,7 @@
   export let bookmark;
   export let note;
   export let createBookmark;
+  export let createNote;
 
   // methods
   const bookmarkHandleChange = e => {
@@ -10,7 +11,24 @@
 
   const noteHandleChange = e => {
     note[e.target.id] = e.target.value;
-    console.log(note);
+  };
+
+  const handleSubmitBookmark = async e => {
+    try {
+      e.preventDefault();
+      await createBookmark(bookmark);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleSubmitNote = async e => {
+    try {
+      e.preventDefault();
+      await createNote(note);
+    } catch (error) {
+      throw error;
+    }
   };
 </script>
 
@@ -92,7 +110,11 @@
           </div>
         </div>
 
-        <button class="button is-primary is-fullwidth">Create Bookmark</button>
+        <button
+          class="button is-primary is-fullwidth"
+          on:click={handleSubmitBookmark}>
+          Create Bookmark
+        </button>
       </div>
     </div>
 
@@ -120,7 +142,9 @@
         </div>
       </div>
 
-      <button class="button is-link is-fullwidth">Create Note</button>
+      <button class="button is-link is-fullwidth" on:click={handleSubmitNote}>
+        Create Note
+      </button>
 
     </div>
 

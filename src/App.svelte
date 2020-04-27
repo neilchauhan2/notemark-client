@@ -53,7 +53,21 @@
           ...credentials
         }
       );
-      await bookmarks.push(...res.data);
+      bookmarks = [...bookmarks, res.data];
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const createNote = async credentials => {
+    try {
+      const res = await axios.post(
+        "https://notemark.herokuapp.com/api/note/add",
+        {
+          ...credentials
+        }
+      );
+      notes = [...notes, res.data];
     } catch (error) {
       throw error;
     }
@@ -75,7 +89,7 @@
 <main>
   <Navbar />
   <div class="container addbox">
-    <AddBox {createBookmark} {bookmark} {note} />
+    <AddBox {createBookmark} {createNote} {bookmark} {note} />
   </div>
 
   <div class="container notemark-section">

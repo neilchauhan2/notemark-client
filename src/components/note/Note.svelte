@@ -1,3 +1,8 @@
+<script>
+  export let title;
+  export let description;
+</script>
+
 <style>
   .note {
     margin-top: 1rem;
@@ -31,16 +36,11 @@
 
 <div class="card note">
   <header class="card-header">
-    <p class="card-header-title title is-4">A good link</p>
+    <p class="card-header-title title is-4">{title}</p>
     <span class="tag is-link">Note</span>
   </header>
   <div class="card-content">
-    <div class="content">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis et
-      nostrum recusandae, iure mollitia consectetur dolor obcaecati assumenda
-      possimus nulla est! Voluptatibus deserunt recusandae necessitatibus
-      dolorem reiciendis beatae similique delectus!
-    </div>
+    <div class="content">{description}</div>
   </div>
   <footer class="card-footer">
     <div class="card-footer-item">

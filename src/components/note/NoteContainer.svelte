@@ -24,7 +24,7 @@
 
 <div class="container note-container">
   {#each notes as note}
-    <Note />
+    <Note title={note.title} description={note.description} />
   {:else}
     <img
       src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
