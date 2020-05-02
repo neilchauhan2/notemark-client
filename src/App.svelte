@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import { Router, Route } from "svelte-routing";
   import Navbar from "./components/Navbar.svelte";
   import Home from "./Home.svelte";
@@ -9,7 +10,10 @@
   // variables -->
   let bookmarks = [];
   let notes = [];
-  let isAuthenticated = false;
+  let token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : null;
+  let isAuthenticated = token ? true : false;
 
   let bookmark = {
     title: "",
@@ -25,9 +29,6 @@
   };
 
   let user = {};
-  let token = localStorage.getItem("token")
-    ? localStorage.getItem("token")
-    : null;
 
   let loginCredentials = {
     email: "",
@@ -43,8 +44,12 @@
 
   // methods -->
 
+  onMount(() => {
+    loadUser();
+  });
+
   // ----------Auth Methods -->
-  export const tokenConfig = () => {
+  const tokenConfig = () => {
     // Headers
     const config = {
       headers: {
@@ -101,6 +106,26 @@
     }
   };
 
+  // get user method
+  const loadUser = async () => {
+    try {
+      const config = tokenConfig();
+      const res = await axios.get(
+        "https://notemark.herokuapp.com/api/user/",
+        config
+      );
+      const { name, email, _id } = res.data;
+      user = {
+        name,
+        email,
+        id: _id
+      };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // logout method
   const logout = () => {
     localStorage.removeItem("token");
     isAuthenticated = false;
