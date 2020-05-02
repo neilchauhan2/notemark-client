@@ -1,8 +1,9 @@
 <script>
+  import { Router, Route } from "svelte-routing";
   import Navbar from "./components/Navbar.svelte";
-  import AddBox from "./components/AddBox.svelte";
-  import BookmarkContainer from "./components/bookmark/BookmarkContainer.svelte";
-  import NoteContainer from "./components/note/NoteContainer.svelte";
+  import Home from "./Home.svelte";
+  import Login from "./components/auth/Login.svelte";
+  import Signup from "./components/auth/Signup.svelte";
   import axios from "axios";
 
   // variables -->
@@ -22,7 +23,70 @@
     creator: "5ea181d42e5cf60022217eee"
   };
 
-  //  methods -->
+  let user = {};
+  let token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : null;
+
+  let loginCredentials = {
+    email: "",
+    password: ""
+  };
+
+  let signupCredentials = {
+    name: "",
+    email: "",
+    password: "",
+    username: ""
+  };
+
+  // methods -->
+
+  // ----------Auth Methods -->
+  export const tokenConfig = () => {
+    // Headers
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+
+    // if token available add it to headers
+    if (token) {
+      config.headers["x-auth-token"] = token;
+    }
+
+    return config;
+  };
+  // signup method
+  const signup = async credentials => {
+    try {
+      const res = await axios.post("https://notemark.herokuapp.com/api/");
+
+      //  localStorage.setItem("token", action.payload.token);
+    } catch (error) {
+      throw error;
+    }
+  };
+  // login method
+  const login = async credentials => {
+    try {
+      const res = await axios.post(
+        "https://notemark.herokuapp.com/api/user/login",
+        {
+          ...credentials
+        }
+      );
+
+      localStorage.setItem("token", res.data.token);
+      user = {
+        ...res.data.user
+      };
+    } catch (error) {
+      throw error;
+    }
+  };
+  // ----------Notes and Bookmarks Methods -->
   const getAllNotes = async () => {
     try {
       const res = await axios.get(
@@ -121,21 +185,26 @@
 </style>
 
 <main>
-  <Navbar />
-  <div class="container addbox">
-    <AddBox {createBookmark} {createNote} {bookmark} {note} />
-  </div>
-
-  <div class="container notemark-section">
-    <div class="columns">
-      <div class="column ">
-        <h1 class="is-size-3 has-text-centered">Bookmarks</h1>
-        <BookmarkContainer {getAllBookmarks} {bookmarks} {deleteBookmark} />
-      </div>
-      <div class="column">
-        <h1 class="is-size-3 has-text-centered">Notes</h1>
-        <NoteContainer {getAllNotes} {notes} {deleteNote} />
-      </div>
-    </div>
-  </div>
+  <Router>
+    <Navbar />
+    <Route path="/" let:params>
+      <Home
+        {createBookmark}
+        {createNote}
+        {bookmark}
+        {note}
+        {getAllBookmarks}
+        {bookmarks}
+        {deleteBookmark}
+        {getAllNotes}
+        {notes}
+        {deleteNote} />
+    </Route>
+    <Route path="/login" let:params>
+      <Login {loginCredentials} {login} />
+    </Route>
+    <Route path="/signup" let:params>
+      <Signup {signupCredentials} {signup} />
+    </Route>
+  </Router>
 </main>

@@ -1,5 +1,5 @@
 <script>
-
+  import { Link } from "svelte-routing";
 </script>
 
 <style>
@@ -19,8 +19,8 @@
       <div class="navbar-item">
         <h1 class="logo is-size-2">Notemark</h1>
       </div>
-      <a
-        href="#"
+      <Link
+        to="#"
         role="button"
         class="navbar-burger burger"
         aria-label="menu"
@@ -29,7 +29,7 @@
         <span aria-hidden="true" />
         <span aria-hidden="true" />
         <span aria-hidden="true" />
-      </a>
+      </Link>
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
@@ -41,10 +41,14 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a href="#" class="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-            <a href="#" class="button is-light">Log in</a>
+            <Link to="/signup">
+              <button class="button is-primary">
+                <strong>Sign up</strong>
+              </button>
+            </Link>
+            <Link to="/login">
+              <button class="button is-light">Log in</button>
+            </Link>
           </div>
         </div>
       </div>
