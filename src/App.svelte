@@ -9,6 +9,7 @@
   // variables -->
   let bookmarks = [];
   let notes = [];
+  let isAuthenticated = false;
 
   let bookmark = {
     title: "",
@@ -58,16 +59,28 @@
 
     return config;
   };
+
   // signup method
   const signup = async credentials => {
     try {
-      const res = await axios.post("https://notemark.herokuapp.com/api/");
-
-      //  localStorage.setItem("token", action.payload.token);
+      document.getElementById("signup-btn").classList.add("is-loading");
+      const res = await axios.post(
+        "https://notemark.herokuapp.com/api/user/signup",
+        {
+          ...credentials
+        }
+      );
+      document.getElementById("signup-btn").classList.remove("is-loading");
+      user = {
+        ...res.data.user
+      };
+      localStorage.setItem("token", res.data.token);
+      isAuthenticated = true;
     } catch (error) {
       throw error;
     }
   };
+
   // login method
   const login = async credentials => {
     try {
@@ -82,11 +95,18 @@
       user = {
         ...res.data.user
       };
+      isAuthenticated = true;
     } catch (error) {
       throw error;
     }
   };
-  // ----------Notes and Bookmarks Methods -->
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    isAuthenticated = false;
+  };
+
+  // ---------------------------Notes and Bookmarks Methods -->
   const getAllNotes = async () => {
     try {
       const res = await axios.get(
@@ -186,7 +206,7 @@
 
 <main>
   <Router>
-    <Navbar />
+    <Navbar {logout} />
     <Route path="/" let:params>
       <Home
         {createBookmark}

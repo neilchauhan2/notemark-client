@@ -1,5 +1,6 @@
 <script>
   import { Link } from "svelte-routing";
+  export let logout;
 </script>
 
 <style>

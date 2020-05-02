@@ -80,5 +80,7 @@
     class="input"
     placeholder="Password"
     on:input={handleChange} />
-  <button class="is-primary button" on:click={handleSubmit}>Sign Up</button>
+  <button class="is-primary button" id="signup-btn" on:click={handleSubmit}>
+    Sign Up
+  </button>
 </div>
