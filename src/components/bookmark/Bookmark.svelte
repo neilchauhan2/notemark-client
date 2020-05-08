@@ -11,14 +11,14 @@
     margin-top: 1rem;
   }
 
-  .bookmark button {
+  .bookmark a {
     width: 10rem;
     font-weight: 600;
     font-size: 15px;
     text-transform: uppercase;
   }
 
-  .bookmark button a {
+  .bookmark a {
     color: white;
   }
 
@@ -53,9 +53,7 @@
   </div>
   <footer class="card-footer">
     <div class="card-footer-item">
-      <button class="button is-primary ">
-        <a href={url}>View</a>
-      </button>
+      <a class="button is-primary" href={url}>View</a>
     </div>
     <div class="card-footer-item">
       <button class="button is-danger" on:click={() => deleteBookmark(id)}>
