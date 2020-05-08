@@ -7,12 +7,12 @@
   export let createNote;
   export let bookmark;
   export let note;
-  export let getAllBookmarks;
   export let bookmarks;
   export let deleteBookmark;
-  export let getAllNotes;
   export let notes;
   export let deleteNote;
+  export let isBookmarkLoading;
+  export let isNoteLoading;
 </script>
 
 <div class="container addbox">
@@ -23,11 +23,11 @@
   <div class="columns">
     <div class="column ">
       <h1 class="is-size-3 has-text-centered">Bookmarks</h1>
-      <BookmarkContainer {getAllBookmarks} {bookmarks} {deleteBookmark} />
+      <BookmarkContainer {bookmarks} {deleteBookmark} {isBookmarkLoading} />
     </div>
     <div class="column">
       <h1 class="is-size-3 has-text-centered">Notes</h1>
-      <NoteContainer {getAllNotes} {notes} {deleteNote} />
+      <NoteContainer {notes} {deleteNote} {isNoteLoading} />
     </div>
   </div>
 </div>

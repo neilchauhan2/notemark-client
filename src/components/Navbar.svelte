@@ -1,6 +1,8 @@
 <script>
   import { Link } from "svelte-routing";
   export let logout;
+  export let isAuthenticated;
+  export let user;
 </script>
 
 <style>
@@ -11,6 +13,10 @@
 
   header {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  }
+
+  .navbar-item .buttons button {
+    margin-right: 1rem;
   }
 </style>
 
@@ -40,17 +46,32 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <Link to="/signup">
-              <button class="button is-primary">
-                <strong>Sign up</strong>
-              </button>
-            </Link>
-            <Link to="/login">
-              <button class="button is-light">Log in</button>
-            </Link>
+        {#if user.name}
+          <div class="navbar-item">
+            <h3 class="is-size-5">Welcome {user.name}</h3>
           </div>
+        {:else}
+          <p />
+        {/if}
+        <div class="navbar-item">
+          {#if isAuthenticated}
+            <button class="button is-light" on:click={() => logout()}>
+              <strong>Log Out</strong>
+            </button>
+          {:else}
+            <div class="buttons">
+              <Link to="/signup">
+                <button class="button is-primary">
+                  <strong>Sign up</strong>
+                </button>
+              </Link>
+              <Link to="/login">
+                <button class="button is-light">
+                  <strong>Log in</strong>
+                </button>
+              </Link>
+            </div>
+          {/if}
         </div>
       </div>
     </div>

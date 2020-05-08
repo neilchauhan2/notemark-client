@@ -3,17 +3,9 @@
   import { onMount } from "svelte";
   import axios from "axios";
 
-  export let getAllNotes;
   export let notes;
   export let deleteNote;
-
-  onMount(async () => {
-    try {
-      await getAllNotes();
-    } catch (error) {
-      throw error;
-    }
-  });
+  export let isNoteLoading;
 </script>
 
 <style>
@@ -31,8 +23,10 @@
       id={note._id}
       {deleteNote} />
   {:else}
-    <img
-      src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
-      alt="loading" />
+    {#if isNoteLoading}
+      <img
+        src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
+        alt="loading" />
+    {/if}
   {/each}
 </div>

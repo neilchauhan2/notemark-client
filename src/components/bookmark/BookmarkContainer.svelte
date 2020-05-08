@@ -3,17 +3,9 @@
   import { onMount } from "svelte";
   import axios from "axios";
 
-  export let getAllBookmarks;
   export let bookmarks;
   export let deleteBookmark;
-
-  onMount(async () => {
-    try {
-      await getAllBookmarks();
-    } catch (error) {
-      throw error;
-    }
-  });
+  export let isBookmarkLoading;
 </script>
 
 <style>
@@ -32,8 +24,10 @@
       id={bookmark._id}
       {deleteBookmark} />
   {:else}
-    <img
-      src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
-      alt="loading" />
+    {#if isBookmarkLoading}
+      <img
+        src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
+        alt="loading" />
+    {/if}
   {/each}
 </div>

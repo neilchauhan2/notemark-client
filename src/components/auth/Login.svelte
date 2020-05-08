@@ -66,5 +66,7 @@
     class="input"
     placeholder="Password"
     on:input={handleChange} />
-  <button class="is-primary button" on:click={handleSubmit}>Login</button>
+  <button class="is-primary button" id="login-btn" on:click={handleSubmit}>
+    Login
+  </button>
 </div>
