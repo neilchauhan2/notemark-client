@@ -1,4 +1,5 @@
 import { writable } from "svelte/store";
+import axios from "axios";
 
 export const user = writable({});
 
@@ -28,15 +29,12 @@ const tokenConfig = () => {
 // signup method
 export const signup = async (credentials) => {
   try {
-    document.getElementById("signup-btn").classList.add("is-loading");
     const res = await axios.post(
       "https://notemark.herokuapp.com/api/user/signup",
       {
         ...credentials
       }
     );
-    document.getElementById("signup-btn").classList.remove("is-loading");
-    // updated
     user.update((user) => {
       return {
         ...res.data,
@@ -55,14 +53,12 @@ export const signup = async (credentials) => {
 // login method
 export const login = async (credentials) => {
   try {
-    document.getElementById("login-btn").classList.add("is-loading");
     const res = await axios.post(
       "https://notemark.herokuapp.com/api/user/login",
       {
         ...credentials
       }
     );
-
     localStorage.setItem("token", res.data.token);
     // updated
     user.update((user) => {
@@ -74,8 +70,6 @@ export const login = async (credentials) => {
     isAuthenticated.update((n) => {
       return true;
     });
-    document.getElementById("login-btn").classList.remove("is-loading");
-    navigate("/");
     getAllBookmarks();
     getAllNotes();
   } catch (error) {

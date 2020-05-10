@@ -1,6 +1,6 @@
 <script>
+  import { signup } from "../../store/userStore";
   export let signupCredentials;
-  export let signup;
 
   const handleChange = e => {
     signupCredentials[e.target.name] = e.target.value;
@@ -9,7 +9,9 @@
   const handleSubmit = async e => {
     try {
       e.preventDefault();
+      document.getElementById("signup-btn").classList.add("is-loading");
       await signup(signupCredentials);
+      document.getElementById("signup-btn").classList.remove("is-loading");
     } catch (error) {
       throw error;
     }

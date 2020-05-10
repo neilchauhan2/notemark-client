@@ -1,8 +1,6 @@
 <script>
   import { Link } from "svelte-routing";
-  export let logout;
-  export let isAuthenticated;
-  export let user;
+  import { logout, isAuthenticated, user } from "../store/userStore";
 
   // navbar toggle
   document.addEventListener("DOMContentLoaded", () => {
@@ -71,15 +69,15 @@
   <div id="navbarBasicExample" class="navbar-menu">
 
     <div class="navbar-end">
-      {#if user.name}
+      {#if $user.name}
         <div class="navbar-item">
-          <h3 class="is-size-5">Welcome {user.name}</h3>
+          <h3 class="is-size-5">Welcome {$user.name}</h3>
         </div>
       {:else}
         <p />
       {/if}
       <div class="navbar-item">
-        {#if isAuthenticated}
+        {#if $isAuthenticated}
           <button class="button is-light" on:click={() => logout()}>
             <strong>Log Out</strong>
           </button>

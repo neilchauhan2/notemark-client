@@ -1,6 +1,7 @@
 <script>
+  import { login } from "../../store/userStore";
+  import { navigate } from "svelte-routing";
   export let loginCredentials;
-  export let login;
 
   const handleChange = e => {
     loginCredentials[e.target.name] = e.target.value;
@@ -9,7 +10,10 @@
   const handleSubmit = async e => {
     try {
       e.preventDefault();
+      document.getElementById("login-btn").classList.add("is-loading");
       await login(loginCredentials);
+      document.getElementById("login-btn").classList.remove("is-loading");
+      navigate("/");
     } catch (error) {
       throw error;
     }

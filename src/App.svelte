@@ -7,17 +7,13 @@
   import Signup from "./components/auth/Signup.svelte";
   import Landing from "./components/Landing.svelte";
   import axios from "axios";
-  import { user } from "./store/userStore";
+  import { user, loadUser, isAuthenticated } from "./store/userStore";
 
   // variables -->
   let isNoteLoading = false;
   let isBookmarkLoading = false;
   let bookmarks = [];
   let notes = [];
-  let token = localStorage.getItem("token")
-    ? localStorage.getItem("token")
-    : null;
-  let isAuthenticated = token ? true : false;
 
   let bookmark = {
     title: "",
@@ -45,104 +41,6 @@
   };
 
   // methods -->
-  // ----------Auth Methods -->
-  const tokenConfig = () => {
-    // Headers
-    const config = {
-      headers: {
-        "Content-type": "application/json"
-      }
-    };
-
-    // if token available add it to headers
-    if (token) {
-      config.headers["x-auth-token"] = token;
-    }
-
-    return config;
-  };
-
-  // signup method
-  const signup = async credentials => {
-    try {
-      document.getElementById("signup-btn").classList.add("is-loading");
-      const res = await axios.post(
-        "https://notemark.herokuapp.com/api/user/signup",
-        {
-          ...credentials
-        }
-      );
-      document.getElementById("signup-btn").classList.remove("is-loading");
-      // updated
-      user.update(user => {
-        return {
-          ...res.data,
-          ...user
-        };
-      });
-      localStorage.setItem("token", res.data.token);
-      isAuthenticated = true;
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  // login method
-  const login = async credentials => {
-    try {
-      document.getElementById("login-btn").classList.add("is-loading");
-      const res = await axios.post(
-        "https://notemark.herokuapp.com/api/user/login",
-        {
-          ...credentials
-        }
-      );
-
-      localStorage.setItem("token", res.data.token);
-      // updated
-      user.update(user => {
-        return {
-          ...res.data,
-          ...user
-        };
-      });
-      isAuthenticated = true;
-      document.getElementById("login-btn").classList.remove("is-loading");
-      navigate("/");
-      getAllBookmarks();
-      getAllNotes();
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  // get user method
-  const loadUser = async () => {
-    try {
-      const config = tokenConfig();
-      const res = await axios.get(
-        "https://notemark.herokuapp.com/api/user/",
-        config
-      );
-      user.update(user => {
-        return {
-          ...res.data,
-          ...user
-        };
-      });
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  // logout method
-  const logout = () => {
-    localStorage.removeItem("token");
-    isAuthenticated = false;
-    user.update(user => {
-      return {};
-    });
-  };
 
   // ---------------------------Notes and Bookmarks Methods -->
   const getAllNotes = async () => {
@@ -258,9 +156,9 @@
 
 <main>
   <Router>
-    <Navbar {logout} {isAuthenticated} {user} />
+    <Navbar />
     <Route path="/" let:params>
-      {#if isAuthenticated}
+      {#if $isAuthenticated}
         <Home
           {createBookmark}
           {createNote}
@@ -277,10 +175,10 @@
       {/if}
     </Route>
     <Route path="/login" let:params>
-      <Login {loginCredentials} {login} />
+      <Login {loginCredentials} />
     </Route>
     <Route path="/signup" let:params>
-      <Signup {signupCredentials} {signup} />
+      <Signup {signupCredentials} />
     </Route>
   </Router>
 </main>
