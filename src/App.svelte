@@ -28,18 +28,6 @@
     creator: $user.id
   };
 
-  let loginCredentials = {
-    email: "",
-    password: ""
-  };
-
-  let signupCredentials = {
-    name: "",
-    email: "",
-    password: "",
-    username: ""
-  };
-
   // methods -->
 
   // ---------------------------Notes and Bookmarks Methods -->
@@ -178,7 +166,7 @@
       <Login {loginCredentials} />
     </Route>
     <Route path="/signup" let:params>
-      <Signup {signupCredentials} />
+      <Signup />
     </Route>
   </Router>
 </main>

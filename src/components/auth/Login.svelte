@@ -1,7 +1,11 @@
 <script>
   import { login } from "../../store/userStore";
   import { navigate } from "svelte-routing";
-  export let loginCredentials;
+
+  let loginCredentials = {
+    email: "",
+    password: ""
+  };
 
   const handleChange = e => {
     loginCredentials[e.target.name] = e.target.value;

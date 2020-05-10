@@ -1,6 +1,12 @@
 <script>
   import { signup } from "../../store/userStore";
-  export let signupCredentials;
+
+  let signupCredentials = {
+    name: "",
+    email: "",
+    password: "",
+    username: ""
+  };
 
   const handleChange = e => {
     signupCredentials[e.target.name] = e.target.value;
