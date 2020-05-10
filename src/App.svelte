@@ -5,10 +5,11 @@
   import Home from "./Home.svelte";
   import Login from "./components/auth/Login.svelte";
   import Signup from "./components/auth/Signup.svelte";
+  import Landing from "./components/Landing.svelte";
   import axios from "axios";
+  import { user } from "./store/userStore";
 
   // variables -->
-  let user = {};
   let isNoteLoading = false;
   let isBookmarkLoading = false;
   let bookmarks = [];
@@ -22,13 +23,13 @@
     title: "",
     descripiton: "",
     url: "",
-    creator: user.id
+    creator: $user.id
   };
 
   let note = {
     title: "",
     description: "",
-    creator: user.id
+    creator: $user.id
   };
 
   let loginCredentials = {
@@ -72,9 +73,13 @@
         }
       );
       document.getElementById("signup-btn").classList.remove("is-loading");
-      user = {
-        ...res.data.user
-      };
+      // updated
+      user.update(user => {
+        return {
+          ...res.data,
+          ...user
+        };
+      });
       localStorage.setItem("token", res.data.token);
       isAuthenticated = true;
     } catch (error) {
@@ -94,12 +99,18 @@
       );
 
       localStorage.setItem("token", res.data.token);
-      user = {
-        ...res.data.user
-      };
+      // updated
+      user.update(user => {
+        return {
+          ...res.data,
+          ...user
+        };
+      });
       isAuthenticated = true;
       document.getElementById("login-btn").classList.remove("is-loading");
-      navigate("/", { replace: true });
+      navigate("/");
+      getAllBookmarks();
+      getAllNotes();
     } catch (error) {
       throw error;
     }
@@ -113,12 +124,12 @@
         "https://notemark.herokuapp.com/api/user/",
         config
       );
-      const { name, email, _id } = res.data;
-      user = {
-        name,
-        email,
-        id: _id
-      };
+      user.update(user => {
+        return {
+          ...res.data,
+          ...user
+        };
+      });
     } catch (error) {
       throw error;
     }
@@ -128,7 +139,9 @@
   const logout = () => {
     localStorage.removeItem("token");
     isAuthenticated = false;
-    user = {};
+    user.update(user => {
+      return {};
+    });
   };
 
   // ---------------------------Notes and Bookmarks Methods -->
@@ -136,7 +149,7 @@
     try {
       isNoteLoading = true;
       const res = await axios.get(
-        `https://notemark.herokuapp.com/api/note/all/${user.id}`
+        `https://notemark.herokuapp.com/api/note/all/${$user._id}`
       );
       isNoteLoading = false;
       notes = [...res.data];
@@ -149,7 +162,7 @@
     try {
       isBookmarkLoading = true;
       const res = await axios.get(
-        `https://notemark.herokuapp.com/api/bookmark/all/${user.id}`
+        `https://notemark.herokuapp.com/api/bookmark/all/${$user._id}`
       );
       isBookmarkLoading = false;
       bookmarks = [...res.data];
@@ -224,8 +237,7 @@
   onMount(async () => {
     try {
       await loadUser();
-      getAllBookmarks();
-      getAllNotes();
+      console.log($user);
     } catch (error) {
       throw error;
     }
@@ -248,17 +260,21 @@
   <Router>
     <Navbar {logout} {isAuthenticated} {user} />
     <Route path="/" let:params>
-      <Home
-        {createBookmark}
-        {createNote}
-        {bookmark}
-        {note}
-        {bookmarks}
-        {deleteBookmark}
-        {notes}
-        {deleteNote}
-        {isBookmarkLoading}
-        {isNoteLoading} />
+      {#if isAuthenticated}
+        <Home
+          {createBookmark}
+          {createNote}
+          {bookmark}
+          {note}
+          {bookmarks}
+          {deleteBookmark}
+          {notes}
+          {deleteNote}
+          {isBookmarkLoading}
+          {isNoteLoading} />
+      {:else}
+        <Landing />
+      {/if}
     </Route>
     <Route path="/login" let:params>
       <Login {loginCredentials} {login} />
