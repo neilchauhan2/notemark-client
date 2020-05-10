@@ -1,8 +1,20 @@
 <script>
-  export let bookmark;
-  export let note;
-  export let createBookmark;
-  export let createNote;
+  import { createNote } from "../store/noteStore";
+  import { createBookmark } from "../store/bookmarkStore";
+  import { user } from "../store/userStore";
+
+  let bookmark = {
+    title: "",
+    descripiton: "",
+    url: "",
+    creator: $user._id
+  };
+
+  let note = {
+    title: "",
+    description: "",
+    creator: $user._id
+  };
 
   // methods
   const bookmarkHandleChange = e => {
@@ -16,7 +28,13 @@
   const handleSubmitBookmark = async e => {
     try {
       e.preventDefault();
+      document
+        .getElementById("create-bookmark-btn")
+        .classList.add("is-loading");
       await createBookmark(bookmark);
+      document
+        .getElementById("create-bookmark-btn")
+        .classList.remove("is-loading");
     } catch (error) {
       throw error;
     }
@@ -25,7 +43,9 @@
   const handleSubmitNote = async e => {
     try {
       e.preventDefault();
+      document.getElementById("create-note-btn").classList.add("is-loading");
       await createNote(note);
+      document.getElementById("create-note-btn").classList.remove("is-loading");
     } catch (error) {
       throw error;
     }

@@ -1,11 +1,25 @@
 <script>
+  import {
+    bookmarks,
+    deleteBookmark,
+    getAllBookmarks
+  } from "../../store/bookmarkStore";
+
+  import { user } from "../../store/userStore";
+
   import Bookmark from "./Bookmark.svelte";
   import { onMount } from "svelte";
   import axios from "axios";
 
-  export let bookmarks;
-  export let deleteBookmark;
   export let isBookmarkLoading;
+
+  onMount(async () => {
+    try {
+      await getAllBookmarks($user._id);
+    } catch (error) {
+      throw error;
+    }
+  });
 </script>
 
 <style>
@@ -16,7 +30,7 @@
 </style>
 
 <div class="container bookmark-container">
-  {#each bookmarks as bookmark}
+  {#each $bookmarks as bookmark}
     <Bookmark
       title={bookmark.title}
       description={bookmark.description}

@@ -1,11 +1,19 @@
 <script>
+  import { notes, deleteNote, getAllNotes } from "../../store/noteStore";
+  import { user } from "../../store/userStore";
   import Note from "./Note.svelte";
   import { onMount } from "svelte";
   import axios from "axios";
 
-  export let notes;
-  export let deleteNote;
   export let isNoteLoading;
+
+  onMount(async () => {
+    try {
+      await getAllNotes($user._id);
+    } catch (error) {
+      throw error;
+    }
+  });
 </script>
 
 <style>
@@ -16,7 +24,7 @@
 </style>
 
 <div class="container note-container">
-  {#each notes as note}
+  {#each $notes as note}
     <Note
       title={note.title}
       description={note.description}
