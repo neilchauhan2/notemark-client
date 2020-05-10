@@ -9,14 +9,9 @@
   import axios from "axios";
   import { user, loadUser, isAuthenticated } from "./store/userStore";
 
-  // variables -->
-  let isNoteLoading = false;
-  let isBookmarkLoading = false;
-
   onMount(async () => {
     try {
       await loadUser();
-      console.log($user);
     } catch (error) {
       throw error;
     }
@@ -40,7 +35,7 @@
     <Navbar />
     <Route path="/" let:params>
       {#if $isAuthenticated}
-        <Home {isBookmarkLoading} {isNoteLoading} />
+        <Home />
       {:else}
         <Landing />
       {/if}

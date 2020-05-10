@@ -11,11 +11,12 @@
   import { onMount } from "svelte";
   import axios from "axios";
 
-  export let isBookmarkLoading;
+  let isBookmarkLoading = true;
 
   onMount(async () => {
     try {
       await getAllBookmarks($user._id);
+      isBookmarkLoading = false;
     } catch (error) {
       throw error;
     }
@@ -23,10 +24,10 @@
 </script>
 
 <style>
-  .bookmark-container img {
+  /* .bookmark-container img {
     width: 100px;
     margin-left: 40%;
-  }
+  } */
 </style>
 
 <div class="container bookmark-container">
@@ -38,10 +39,8 @@
       id={bookmark._id}
       {deleteBookmark} />
   {:else}
-    {#if isBookmarkLoading}
-      <img
-        src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
-        alt="loading" />
-    {/if}
+    <!-- <img
+      src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
+      alt="loading" /> -->
   {/each}
 </div>

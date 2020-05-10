@@ -5,11 +5,12 @@
   import { onMount } from "svelte";
   import axios from "axios";
 
-  export let isNoteLoading;
+  let isNoteLoading = true;
 
   onMount(async () => {
     try {
       await getAllNotes($user._id);
+      isNoteLoading = false;
     } catch (error) {
       throw error;
     }
@@ -17,10 +18,10 @@
 </script>
 
 <style>
-  .note-container img {
+  /* .note-container img {
     width: 100px;
     margin-left: 40%;
-  }
+  } */
 </style>
 
 <div class="container note-container">
@@ -30,11 +31,9 @@
       description={note.description}
       id={note._id}
       {deleteNote} />
-  {:else}
-    {#if isNoteLoading}
+    <!-- {:else}
       <img
         src="https://media.giphy.com/media/PUYgk3wpNk0WA/source.gif"
-        alt="loading" />
-    {/if}
+        alt="loading" /> -->
   {/each}
 </div>
