@@ -47,7 +47,10 @@
   }
 </style>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav
+  class="navbar container is-fluid"
+  role="navigation"
+  aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
       <h1 class="logo is-size-2">Notemark</h1>
@@ -71,7 +74,7 @@
     <div class="navbar-end">
       {#if $user.name}
         <div class="navbar-item">
-          <h3 class="is-size-5">Welcome {$user.name}</h3>
+          <h3 class="is-size-5">Welcome John Doe</h3>
         </div>
       {:else}
         <p />

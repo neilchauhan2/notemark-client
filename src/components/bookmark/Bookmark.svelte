@@ -11,7 +11,7 @@
     margin-top: 1rem;
   }
 
-  .bookmark a {
+  .bookmark .button {
     width: 10rem;
     font-weight: 600;
     font-size: 15px;
