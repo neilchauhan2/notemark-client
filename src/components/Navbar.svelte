@@ -34,7 +34,7 @@
     text-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
   }
 
-  header {
+  nav {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
   }
 
