@@ -70,8 +70,6 @@ export const login = async (credentials) => {
     isAuthenticated.update((n) => {
       return true;
     });
-    getAllBookmarks();
-    getAllNotes();
   } catch (error) {
     throw error;
   }
