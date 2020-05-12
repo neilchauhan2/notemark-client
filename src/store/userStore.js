@@ -3,11 +3,11 @@ import axios from "axios";
 
 export const user = writable({});
 
-export const isAuthenticated = writable(false);
-
 let token = localStorage.getItem("token")
   ? localStorage.getItem("token")
   : null;
+
+export const isAuthenticated = writable(token ? true : false);
 
 // ----------Auth Methods -->
 const tokenConfig = () => {
