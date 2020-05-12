@@ -5,19 +5,20 @@
 
   let bookmark = {
     title: "",
-    descripiton: "",
+    description: "",
     url: "",
-    creator: $user._id
+    creator: ""
   };
 
   let note = {
     title: "",
     description: "",
-    creator: $user._id
+    creator: ""
   };
 
   // methods
   const bookmarkHandleChange = e => {
+    bookmark[e.target.name] = e.target.value;
     bookmark[e.target.name] = e.target.value;
   };
 
@@ -31,7 +32,10 @@
       document
         .getElementById("create-bookmark-btn")
         .classList.add("is-loading");
-      await createBookmark(bookmark);
+      await createBookmark({
+        ...bookmark,
+        creator: $user._id
+      });
       document
         .getElementById("create-bookmark-btn")
         .classList.remove("is-loading");
@@ -44,7 +48,10 @@
     try {
       e.preventDefault();
       document.getElementById("create-note-btn").classList.add("is-loading");
-      await createNote(note);
+      await createNote({
+        ...note,
+        creator: $user._id
+      });
       document.getElementById("create-note-btn").classList.remove("is-loading");
     } catch (error) {
       throw error;
