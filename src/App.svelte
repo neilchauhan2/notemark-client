@@ -11,7 +11,7 @@
 
   onMount(async () => {
     try {
-      await loadUser();
+      if ($isAuthenticated) await loadUser();
     } catch (error) {
       throw error;
     }
