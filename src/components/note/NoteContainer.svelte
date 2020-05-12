@@ -1,20 +1,7 @@
 <script>
   import { notes, deleteNote, getAllNotes } from "../../store/noteStore";
-  import { user } from "../../store/userStore";
   import Note from "./Note.svelte";
-  import { onMount } from "svelte";
   import axios from "axios";
-
-  let isNoteLoading = true;
-
-  onMount(async () => {
-    try {
-      await getAllNotes($user._id);
-      isNoteLoading = false;
-    } catch (error) {
-      throw error;
-    }
-  });
 </script>
 
 <style>

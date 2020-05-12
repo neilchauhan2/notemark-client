@@ -5,22 +5,8 @@
     getAllBookmarks
   } from "../../store/bookmarkStore";
 
-  import { user } from "../../store/userStore";
-
   import Bookmark from "./Bookmark.svelte";
-  import { onMount } from "svelte";
   import axios from "axios";
-
-  let isBookmarkLoading = true;
-
-  onMount(async () => {
-    try {
-      await getAllBookmarks($user._id);
-      isBookmarkLoading = false;
-    } catch (error) {
-      throw error;
-    }
-  });
 </script>
 
 <style>

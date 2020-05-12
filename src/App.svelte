@@ -8,10 +8,16 @@
   import Landing from "./components/Landing.svelte";
   import axios from "axios";
   import { user, loadUser, isAuthenticated } from "./store/userStore";
+  import { getAllBookmarks } from "./store/bookmarkStore";
+  import { getAllNotes } from "./store/noteStore";
 
   onMount(async () => {
     try {
-      if ($isAuthenticated) await loadUser();
+      if ($isAuthenticated) {
+        await loadUser();
+        getAllBookmarks($user._id);
+        getAllNotes($user._id);
+      }
     } catch (error) {
       throw error;
     }

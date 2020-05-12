@@ -74,7 +74,7 @@
     <div class="navbar-end">
       {#if $user.name}
         <div class="navbar-item">
-          <h3 class="is-size-5">Welcome John Doe</h3>
+          <h3 class="is-size-5">Welcome {$user.name}</h3>
         </div>
       {:else}
         <p />

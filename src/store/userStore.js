@@ -37,8 +37,7 @@ export const signup = async (credentials) => {
     );
     user.update((user) => {
       return {
-        ...res.data,
-        ...user
+        ...res.data
       };
     });
     localStorage.setItem("token", res.data.token);
@@ -63,8 +62,7 @@ export const login = async (credentials) => {
     // updated
     user.update((user) => {
       return {
-        ...res.data,
-        ...user
+        ...res.data
       };
     });
     isAuthenticated.update((n) => {
@@ -85,8 +83,7 @@ export const loadUser = async () => {
     );
     user.update((user) => {
       return {
-        ...res.data,
-        ...user
+        ...res.data
       };
     });
     isAuthenticated.update((n) => {
